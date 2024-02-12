@@ -13,7 +13,6 @@ def score_user():
    return SCORE
    
 def rescue():
-    # First ask the user their name and age
     # Input validation
     if is_number():
         print('Not a name, please enter your name')
