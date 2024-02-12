@@ -30,35 +30,45 @@ def rescue():
       print(cat_names)
       cat_age = [ 3, 8, 12, 1, 4, 8, 2, 2, 8, 4]
       print("Their age: ", cat_age)
-      hs = [3, 6, 9, 7, 5, 2, 1, 1, 2, 3]
-      print("Their health score: ", hs)
+      cat_hs = [3, 6, 9, 7, 5, 2, 1, 1, 2, 3]
+      print("Their health score: ", cat_hs)
       # DOGS
       print("These are the dogs in the shelter: ")
       dog_names = [' Kermit', 'Leia', ' Bobby', ' Tiger', ' Asos', 'Guizmo', 'Suffo', 'Marraket', 'Kiki', 'Ursula']
       print(dog_names)
       dog_age = [ 3, 8, 12, 1, 4, 8, 2, 2, 8, 4]
       print("Their age: ", dog_age)
-      hs = [3, 6, 9, 7, 5, 2, 1, 1, 2, 3]
-      print("Their health score: ", hs)
+      dog_hs = [3, 6, 9, 7, 5, 2, 1, 1, 2, 3]
+      print("Their health score: ", dog_hs)
 
     # How many pets can you rescue? 
       howManyrescue = input(str('How many pets can you rescue?'))
       toInt = int(howManyrescue)
-      print(type(toInt))
-    #  Cat or dog
-      pet = input(str('A cat or a dog?'))
-      print((pet))
+  
+    # #  Cat or dog
+    #   pet = input(str('A cat or a dog?'))
+    #   print((pet))
+      
     # if user inputs 0, ask to rescue minimum one pet
       if toInt == 0:
           print("Minimum to rescue one pet!")
      # If user can rescue one pet: print the pet's name, the score and a thank you message. 
-      elif toInt == 1 and pet == 'cat':
-          print(f"The cat's name is:", cat_names[0], "Your score is:", score_user())
-    
-
+      elif toInt == 1:
+        pet = input(str('A cat or a dog?'))
+        print((pet))
+        if pet == 'cat':
+          print(f"The cat's name is:", cat_names[0], "His health score is: ", cat_hs[0], "Your score is:", score_user())
+        elif pet == 'dog':
+          print(f"The dog's name is:", dog_names[0], "His health score is: ", dog_hs[0], "Your score is:", score_user())
+      elif toInt > 1 and toInt < 3:
+          cats = str(input("Do you want to rescue 2 cats or 2 dogs?"))
+          print(cats)
+          if cats == 'two cats':
+              print(f"The cat's names are:", cat_names[:2], "Their health score: ", cat_hs[:2], "Your score is:", score_user())
+          
       # rescued = []
       # for a, name in enumerate(cat_names):
-      #   rescued.append(('name ', name, 'age ', cat_age[a],'healt points: ', hs[a]))
+      #   rescued.append(('name ', name, 'age ', cat_age[a],'healt points: ', cat_hs[a]))
     
       # return rescued
     
