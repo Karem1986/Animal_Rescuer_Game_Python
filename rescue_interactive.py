@@ -1,9 +1,26 @@
+from opentelemetry import trace
+from opentelemetry.trace import TracerProvider
+from opentelemetry.sdk.trace import export, TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+
+
+# Initialize OpenTelemetry tracing
+trace.set_tracer_provider(TracerProvider())
+tracer = trace.get_tracer(__name__)
+
+# Configure the OTLP exporter to deploy with kubernetes, otel-collector is the service name to connect with Kubernetes
+otlp_exporter = OTLPSpanExporter(endpoint="http://otel-collector:4317", insecure=True)
+span_processor = BatchSpanProcessor(otlp_exporter)
+trace.get_tracer_provider().add_span_processor(span_processor)
+
 user_name = input('Please enter your name')
 
 # check for number
 def is_number():
     check_for_number = user_name.isnumeric()
     return check_for_number
+
 
 # Assign score based on how many pets are rescued
 SCORE = 0
