@@ -17,6 +17,7 @@ spec:
       containers:
       - name: rescue-app
         image: karin86/pythonapp:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 5000
         env:
