@@ -3,7 +3,7 @@ from opentelemetry.trace import TracerProvider
 from opentelemetry.sdk.trace import export, TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
-
+import time
 
 # Initialize OpenTelemetry tracing
 trace.set_tracer_provider(TracerProvider())
@@ -13,6 +13,21 @@ tracer = trace.get_tracer(__name__)
 otlp_exporter = OTLPSpanExporter(endpoint="http://otel-collector:4317", insecure=True)
 span_processor = BatchSpanProcessor(otlp_exporter)
 trace.get_tracer_provider().add_span_processor(span_processor)
+
+# Create a function to simulate a memory crash 
+def memory_crash():
+    """Function to simulate memory consumption."""
+    data = []
+    counter = 0
+    while True:
+        data.append(" " * 10**6)  # Allocate 1MB of memory
+        counter += 1
+        print(f"Allocated {counter} MB of memory")
+        time.sleep(0.1)
+
+if __name__ == "__main__":
+    with tracer.start_as_current_span("memory_crash_span"):
+        memory_crash()
 
 user_name = input('Please enter your name')
 
