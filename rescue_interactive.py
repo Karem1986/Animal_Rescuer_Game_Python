@@ -5,6 +5,13 @@ from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
 import time
 
+# For monitoring with Grafana
+from prometheus_client import start_http_server
+
+# Start a Prometheus metrics server on port 8000
+start_http_server(8000)
+print("Prometheus metrics server started on port 8000")
+
 # Initialize OpenTelemetry tracing
 trace.set_tracer_provider(TracerProvider())
 tracer = trace.get_tracer(__name__)
