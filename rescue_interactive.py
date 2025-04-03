@@ -1,3 +1,4 @@
+from flask import Flask, request, jsonify
 from opentelemetry import trace
 from opentelemetry.trace import TracerProvider
 from opentelemetry.sdk.trace import export, TracerProvider
@@ -21,20 +22,20 @@ otlp_exporter = OTLPSpanExporter(endpoint="http://otel-collector:4317", insecure
 span_processor = BatchSpanProcessor(otlp_exporter)
 trace.get_tracer_provider().add_span_processor(span_processor)
 
-# Create a function to simulate a memory crash 
-def memory_crash():
-    """Function to simulate memory consumption."""
-    data = []
-    counter = 0
-    while True:
-        data.append(" " * 10**6)  # Allocate 1MB of memory
-        counter += 1
-        print(f"Allocated {counter} MB of memory")
-        time.sleep(0.1)
+# # Create a function to simulate a memory crash based on a heap overflow-The whole computer
+# def memory_crash():
+#     """Function to simulate memory consumption."""
+#     data = []
+#     counter = 0
+#     while True:
+#         data.append(" " * 10**6)  # Allocate 1MB of memory
+#         counter += 1
+#         print(f"Allocated {counter} MB of memory")
+#         time.sleep(0.1)
 
-if __name__ == "__main__":
-    with tracer.start_as_current_span("memory_crash_span"):
-        memory_crash()
+# if __name__ == "__main__":
+#     with tracer.start_as_current_span("memory_crash_span"):
+#         memory_crash()
 
 user_name = input('Please enter your name')
 
@@ -43,7 +44,6 @@ def is_number():
     check_for_number = user_name.isnumeric()
     return check_for_number
 
-
 # Assign score based on how many pets are rescued
 SCORE = 0
 def score_user():
@@ -51,7 +51,7 @@ def score_user():
    SCORE +=3
    return SCORE
 
-#  function to handle names, health score and animal's age:
+# dummy data
 cat_names = ['Kermit', 'Leia', 'Bobby', 'Tiger', 'Asos', 'Guizmo', 'Suffo', 'Marraket', 'Kiki', 'Ursula']
 cat_age = [3, 8, 12, 1, 4, 8, 2, 2, 8, 4]
 cat_healthScore = [3, 6, 9, 7, 5, 2, 1, 1, 2, 3]
