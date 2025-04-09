@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask
 from opentelemetry import trace
 from opentelemetry.trace import TracerProvider
 from opentelemetry.sdk.trace import export, TracerProvider
@@ -51,9 +51,15 @@ def score_user():
    SCORE +=3
    return SCORE
 
-# dummy data
+# data
 cat_names = ['Kermit', 'Leia', 'Bobby', 'Tiger', 'Asos', 'Guizmo', 'Suffo', 'Marraket', 'Kiki', 'Ursula']
 cat_age = [3, 8, 12, 1, 4, 8, 2, 2, 8, 4]
+cow_names = ['Kermit', 'Leia', 'Bobby', 'Tiger', 'Asos', 'Guizmo', 'Suffo', 'Marraket', 'Kiki', 'Ursula']
+cow_age = [3, 8, 12, 1, 4, 8, 2, 2, 8, 4]
+pig_names = ['Kermit', 'Leia', 'Bobby', 'Tiger', 'Asos', 'Guizmo', 'Suffo', 'Marraket', 'Kiki', 'Ursula']
+pig_age = [3, 8, 12, 1, 4, 8, 2, 2, 8, 4]
+pig_healthScore = [3, 6, 9, 7, 5, 2, 1, 1, 2, 3]
+cow_healthScore = [3, 6, 9, 7, 5, 2, 1, 1, 2, 3]
 cat_healthScore = [3, 6, 9, 7, 5, 2, 1, 1, 2, 3]
 dog_names = ['Kermit', 'Leia', 'Bobby', 'Tiger', 'Asos', 'Guizmo', 'Suffo', 'Marraket', 'Kiki', 'Ursula']
 dog_age = [3, 8, 12, 1, 4, 8, 2, 2, 8, 4]

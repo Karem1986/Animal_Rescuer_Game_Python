@@ -1,4 +1,13 @@
-# Kubernetes
+# Running this application locally on your machine
+
+(Make sure the requirements.txt has all dependencies needed)
+
+docker build -t karin86/pythonapp:latest .
+
+docker run -it -p 8080:5000 -p 8000:8000 karin86/pythonapp:latest
+
+# Adding new changes/extending the application
+
 If adding any changes to the application, dockerfile or yaml files execute the following commands after:
 
 - Rebuild and push the image to docker hub registry:
