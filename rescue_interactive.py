@@ -115,10 +115,16 @@ def rescue():
         choice = input("Do you want to rescue cats or dogs? ").strip().lower()
     if choice == 'cats':
        display_rescued_animal("cats", cat_names[:2], cat_healthScore[:2])
+    if choice == 'cows':
+      display_rescued_animal("cows", cow_names[:2], cow_healthScore[:2])
+    if choice == 'pigs':
+      display_rescued_animal("pigs", pig_names[:2], pig_healthScore[:2])
     elif choice == 'dogs':
       display_rescued_animal("dogs", dog_names[:2], dog_healthScore[:2])
-    elif choice == 'both':
+    elif choice == 'cats and doqgs':
       display_rescued_animal("both cats and dogs", cat_names[:2] + dog_names[:2], cat_healthScore[:2] + dog_healthScore[:2])
+    elif choice == 'all':
+      display_rescued_animal("all animals", cat_names + dog_names, cat_healthScore + dog_healthScore + cow_names + cow_healthScore + pig_names + pig_healthScore)
     else:
       print("Invalid choice. Please choose 'cats', 'dogs' or 'both'.")
 
