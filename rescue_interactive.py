@@ -54,13 +54,13 @@ def score_user():
 # data
 cat_names = ['Kermit', 'Leia', 'Bobby', 'Tiger', 'Asos', 'Guizmo', 'Suffo', 'Marraket', 'Kiki', 'Ursula']
 cat_age = [3, 8, 12, 1, 4, 8, 2, 2, 8, 4]
-cow_names = ['Kermit', 'Leia', 'Bobby', 'Tiger', 'Asos', 'Guizmo', 'Suffo', 'Marraket', 'Kiki', 'Ursula']
-cow_age = [3, 8, 12, 1, 4, 8, 2, 2, 8, 4]
-pig_names = ['Kermit', 'Leia', 'Bobby', 'Tiger', 'Asos', 'Guizmo', 'Suffo', 'Marraket', 'Kiki', 'Ursula']
-pig_age = [3, 8, 12, 1, 4, 8, 2, 2, 8, 4]
-pig_healthScore = [3, 6, 9, 7, 5, 2, 1, 1, 2, 3]
-cow_healthScore = [3, 6, 9, 7, 5, 2, 1, 1, 2, 3]
 cat_healthScore = [3, 6, 9, 7, 5, 2, 1, 1, 2, 3]
+cow_names = ['Bella', 'Leia', 'Madonna']
+cow_age = [3, 8, 12]
+cow_healthScore = [3, 6, 9]
+pig_names = ['Babe', 'Tomillito', 'Patrizio']
+pig_age = [3, 8, 12]
+pig_healthScore = [3, 6, 9, 7, 5, 2, 1, 1, 2, 3]
 dog_names = ['Kermit', 'Leia', 'Bobby', 'Tiger', 'Asos', 'Guizmo', 'Suffo', 'Marraket', 'Kiki', 'Ursula']
 dog_age = [3, 8, 12, 1, 4, 8, 2, 2, 8, 4]
 dog_healthScore = [3, 6, 9, 7, 5, 2, 1, 1, 2, 3]
@@ -83,17 +83,16 @@ def rescue():
     print(greet)
 
     # Game explanation
-    game_explt = "Choose how many cats or dogs you want to rescue. You will receive a score from 1 to 10. More pets == higher score."
+    game_explt = "Choose how many animals you want to rescue. You will receive a score from 1 to 10. More pets == higher score."
     print(game_explt)
 
-  # Display options for the user
 # Display options for the user
     print("You can rescue:\n" + display_rescued_animal("cats", cat_names, cat_healthScore))
     print("You can rescue:\n" + display_rescued_animal("dogs", dog_names, dog_healthScore))
 
     # Ask how many pets the user wants to rescue
     while True:
-        howManyrescue = input("How many pets can you rescue? ")
+        howManyrescue = input("How many animals can you rescue? ")
         if howManyrescue.isdigit():
             toInt = int(howManyrescue)
             break
@@ -104,20 +103,24 @@ def rescue():
     if toInt == 0:
         print("Minimum to rescue one pet!")
     elif toInt == 1:
-        pet = input("A cat or a dog? ").strip().lower()
+        pet = input("A cat, a cows, a pig or a dog? ").strip().lower()
         if pet == 'cat':
             print(f"The cat's name is: {cat_names[0]}, Health score: {cat_healthScore[0]}, Your score: {score_user()}")
         elif pet == 'dog':
             print(f"The dog's name is: {dog_names[0]}, Health score: {dog_healthScore[0]}, Your score: {score_user()}")
+        elif pet == 'cow' or pet == 'cows':
+            print(f"The cow's name is: {cow_names[0]}, Health score: {cow_healthScore[0]}, Your score: {score_user()}")
+        elif pet == 'pig' or pet == 'pigs':
+            print(f"The pig's name is: {pig_names[0]}, Health score: {pig_healthScore[0]}, Your score: {score_user()}")
         else:
             print("Invalid choice. Please choose 'cat' or 'dog'.")
     else:
-        choice = input("Do you want to rescue cats or dogs? ").strip().lower()
+        choice = input("Do you want to rescue cats, cows, pigs, dogs? ").strip().lower()
     if choice == 'cats':
        display_rescued_animal("cats", cat_names[:2], cat_healthScore[:2])
-    if choice == 'cows':
+    elif choice == 'cows':
       display_rescued_animal("cows", cow_names[:2], cow_healthScore[:2])
-    if choice == 'pigs':
+    elif choice == 'pigs':
       display_rescued_animal("pigs", pig_names[:2], pig_healthScore[:2])
     elif choice == 'dogs':
       display_rescued_animal("dogs", dog_names[:2], dog_healthScore[:2])
@@ -126,13 +129,17 @@ def rescue():
     elif choice == 'all':
       display_rescued_animal("all animals", cat_names + dog_names, cat_healthScore + dog_healthScore + cow_names + cow_healthScore + pig_names + pig_healthScore)
     else:
-      print("Invalid choice. Please choose 'cats', 'dogs' or 'both'.")
+      print("Invalid choice. Please choose 'cats', 'cows', 'pigs', 'dogs' or 'both'.")
 
     # Create a list of rescued animals (optional)
     rescued = []
     for a, name in enumerate(cat_names):
       if choice == 'cat':
         rescued.append({'name': name, 'age': cat_age[a], 'health points': cat_healthScore[a] })
+      if choice == 'cow' or choice == 'cows':
+        rescued.append({'name': name, 'age': cow_age[a], 'health points': cow_healthScore[a] })
+      if choice == 'pig' or choice == 'pigs':
+        rescued.append({'name': name, 'age': pig_age[a], 'health points': pig_healthScore[a] })
       if choice == 'dog':
         rescued.append({'name': name, 'age': dog_age[a], 'health points': dog_healthScore[a] })
       if choice == 'both':
