@@ -127,12 +127,6 @@ def rescue():
     elif choice == 'dogs':
         print(display_rescued_animal("dogs", dog_names[:toInt], dog_healthScore[:toInt]))
 
-    # Create a list of rescued animals
-    rescued_animals = []
-    for i in range(toInt):
-        animal = input(f"Enter the name of rescued animal {i + 1}: ")
-        rescued_animals.append(animal)
-    
-    print(f"Rescued animals: {rescued_animals}")
+    return f"Your score is: {score_user()}"
 
 print(rescue())
