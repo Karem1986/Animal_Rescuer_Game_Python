@@ -44,7 +44,7 @@ def is_number():
     check_for_number = user_name.isnumeric()
     return check_for_number
 
-# Assign score based on how many pets are rescued
+# Assign score based on how many pets are rescued--NEEDS TO BE IMPROVED
 SCORE = 0
 def score_user():
    global SCORE

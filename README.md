@@ -1,10 +1,17 @@
-# Running this application locally on your machine
+# Running this application locally on your machine as an Interactive application (NOT FLASK WEB BASED)
 
 (Make sure the requirements.txt has all dependencies needed)
 
 docker build -t karin86/pythonapp:latest .
 
 docker run -it -p 8080:5000 -p 8000:8000 karin86/pythonapp:latest
+
+# Flask web based application
+If the game is converted to web based for access in the browser:
+    docker build -t karin86/pythonapp:latest .
+    docker run -p 8080:5000 -p 8000:8000 karin86/pythonapp:latest
+    ![See the game!](Game.png)
+Access via localhost:8080 (See Dockerfile)
 
 # Adding new changes/extending the application
 
