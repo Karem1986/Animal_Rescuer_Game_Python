@@ -55,10 +55,10 @@ def score_user():
 cat_names = ['Kermit', 'Leia', 'Bobby', 'Tiger', 'Asos', 'Guizmo', 'Suffo', 'Marraket', 'Kiki', 'Ursula']
 cat_age = [3, 8, 12, 1, 4, 8, 2, 2, 8, 4]
 cat_healthScore = [3, 6, 9, 7, 5, 2, 1, 1, 2, 3]
-cow_names = ['Bella', 'Leia', 'Madonna']
-cow_age = [3, 8, 12]
-cow_healthScore = [3, 6, 9]
-pig_names = ['Babe', 'Tomillito', 'Patrizio']
+cow_names = ['Bella', 'Leia', 'Madonna', 'Bobby', 'Tiger', 'Asos', 'Guizmo', 'Suffo', 'Marraket', 'Kiki']
+cow_age = [3, 8, 12, 1, 4, 8, 2, 2, 8, 4]
+cow_healthScore = [3, 6, 9, 7, 5, 2, 1, 1, 2, 3]
+pig_names = ['Babe', 'Tomillito', 'Patrizio', 'Lindo', 'Asos', 'Guizmo', 'Suffo', 'Marraket', 'Kiki', 'Ursula']
 pig_age = [3, 8, 12]
 pig_healthScore = [3, 6, 9, 7, 5, 2, 1, 1, 2, 3]
 dog_names = ['Kermit', 'Leia', 'Bobby', 'Tiger', 'Asos', 'Guizmo', 'Suffo', 'Marraket', 'Kiki', 'Ursula']
@@ -89,6 +89,8 @@ def rescue():
 # Display options for the user
     print("You can rescue:\n" + display_rescued_animal("cats", cat_names, cat_healthScore))
     print("You can rescue:\n" + display_rescued_animal("dogs", dog_names, dog_healthScore))
+    print("You can rescue:\n" + display_rescued_animal("cows", cow_names, cow_healthScore))
+    print("You can rescue:\n" + display_rescued_animal("pigs", pig_names, pig_healthScore))
 
     # Ask how many pets the user wants to rescue
     while True:
@@ -115,21 +117,21 @@ def rescue():
         else:
             print("Invalid choice. Please choose 'cat' or 'dog'.")
     else:
-        choice = input("Do you want to rescue cats, cows, pigs, dogs? ").strip().lower()
-    if choice == 'cats':
-       display_rescued_animal("cats", cat_names[:2], cat_healthScore[:2])
-    elif choice == 'cows':
-      display_rescued_animal("cows", cow_names[:2], cow_healthScore[:2])
-    elif choice == 'pigs':
-      display_rescued_animal("pigs", pig_names[:2], pig_healthScore[:2])
-    elif choice == 'dogs':
-      display_rescued_animal("dogs", dog_names[:2], dog_healthScore[:2])
-    elif choice == 'cats and doqgs':
-      display_rescued_animal("both cats and dogs", cat_names[:2] + dog_names[:2], cat_healthScore[:2] + dog_healthScore[:2])
-    elif choice == 'all':
-      display_rescued_animal("all animals", cat_names + dog_names, cat_healthScore + dog_healthScore + cow_names + cow_healthScore + pig_names + pig_healthScore)
-    else:
-      print("Invalid choice. Please choose 'cats', 'cows', 'pigs', 'dogs' or 'both'.")
+      choice = input("Do you want to rescue cats, cows, pigs, dogs? ").strip().lower()
+      if choice == 'cats':
+        print(display_rescued_animal("cats", cat_names[:2], cat_healthScore[:2]))
+      elif choice == 'cows':
+        print(display_rescued_animal("cows", cow_names[:2], cow_healthScore[:2]))
+      elif choice == 'pigs':
+        print(display_rescued_animal("pigs", pig_names[:2], pig_healthScore[:2]))
+      elif choice == 'dogs':
+        print(display_rescued_animal("dogs", dog_names[:2], dog_healthScore[:2]))
+      elif choice == 'cats and doqgs':
+        print(display_rescued_animal("cats and dogs", cat_names[:2] + dog_names[:2], cat_healthScore[:2] + dog_healthScore[:2]))
+      elif choice == 'all':
+        print(display_rescued_animal("all animals", cat_names + dog_names + cow_names + pig_names, cat_healthScore + dog_healthScore + cow_healthScore + pig_healthScore))
+      else:
+        print("Invalid choice. Please choose 'cats', 'cows', 'pigs', 'dogs' or 'both'.")
 
     # Create a list of rescued animals (optional)
     rescued = []
