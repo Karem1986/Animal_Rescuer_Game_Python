@@ -1,6 +1,6 @@
 # Running this application locally on your machine as an Interactive application (NOT FLASK WEB BASED)
 
-(Make sure the requirements.txt has all dependencies needed)
+Make sure the requirements.txt has all dependencies needed and the Dockerfile uses the rescue_interactive.py file.
 
 docker build -t karin86/pythonapp:latest .
 
