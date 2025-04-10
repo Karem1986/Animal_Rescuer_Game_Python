@@ -7,15 +7,18 @@ docker build -t karin86/pythonapp:latest .
 docker run -it -p 8080:5000 -p 8000:8000 karin86/pythonapp:latest
 
 # Flask web based application
-If the game is converted to web based for access in the browser:
+
+The flask_web_App file is configured to run as a Flask web app in the browser (See Dockerfile)
+
     docker build -t karin86/pythonapp:latest .
     docker run -p 8080:5000 -p 8000:8000 karin86/pythonapp:latest
     ![See the game!](Game.png)
+
 Access via localhost:8080 (See Dockerfile)
 
 # Adding new changes/extending the application
 
-If adding any changes to the application, dockerfile or yaml files execute the following commands after:
+If adding any changes to the application, dockerfile or yaml files execute the following commands afterwards:
 
 - Rebuild and push the image to docker hub registry:
     docker build -t karin86/pythonapp:latest .
@@ -38,6 +41,3 @@ You should see something similar to this under the Container section:
       Finished:     Tue, 01 Apr 2025 11:07:42 +0200
     Ready:          False
     Restart Count:  4
-
-
-
