@@ -44,12 +44,12 @@ def is_number():
     check_for_number = user_name.isnumeric()
     return check_for_number
 
-# Assign score based on how many pets are rescued--NEEDS TO BE IMPROVED
+# Assign score based on how many pets are rescued
 SCORE = 0
-def score_user():
-   global SCORE
-   SCORE +=3
-   return SCORE
+def score_user(rescued_count):
+    global SCORE
+    SCORE += rescued_count
+    return SCORE
 
 # data
 cat_names = ['Kermit', 'Leia', 'Bobby', 'Tiger', 'Asos', 'Guizmo', 'Suffo', 'Marraket', 'Kiki', 'Ursula']
@@ -117,6 +117,6 @@ def rescue():
       elif choice == 'dogs':
         print(display_rescued_animal("dogs", dog_names[:toInt], dog_healthScore[:toInt]))
 
-    return f"Your score is: {score_user()}"
+    return f"Your score is: {score_user(toInt)}"
 
 print(rescue())
