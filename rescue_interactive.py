@@ -96,27 +96,27 @@ def rescue():
     while True:
         howManyrescue = input("How many animals can you rescue? ")
         if howManyrescue.isdigit():
-            toInt = int(howManyrescue)
+            numberOfRescues = int(howManyrescue)
             break
         else:
             print("Please enter a valid number.")
 
 # Handle rescue logic
-    if toInt == 0:
+    if numberOfRescues == 0:
       print("Minimum to rescue one pet!")
-    elif toInt >= 1:
-      print(f"You have chosen to rescue {toInt} animals.")
+    elif numberOfRescues >= 1:
+      print(f"You have chosen to rescue {numberOfRescues} animals.")
       choice = input("Do you want to rescue cats, cows, pigs or dogs? ").strip().lower()
       
       if choice == 'cats':
-        print(display_rescued_animal("cats", cat_names[:toInt], cat_healthScore[:toInt]))
+        print(display_rescued_animal("cats", cat_names[:numberOfRescues], cat_healthScore[:numberOfRescues]))
       elif choice == 'cows':
-        print(display_rescued_animal("cows", cow_names[:toInt], cow_healthScore[:toInt]))
+        print(display_rescued_animal("cows", cow_names[:numberOfRescues], cow_healthScore[:numberOfRescues]))
       elif choice == 'pigs':
-        print(display_rescued_animal("pigs", pig_names[:toInt], pig_healthScore[:toInt]))
+        print(display_rescued_animal("pigs", pig_names[:numberOfRescues], pig_healthScore[:numberOfRescues]))
       elif choice == 'dogs':
-        print(display_rescued_animal("dogs", dog_names[:toInt], dog_healthScore[:toInt]))
+        print(display_rescued_animal("dogs", dog_names[:numberOfRescues], dog_healthScore[:numberOfRescues]))
 
-    return f"Your score is: {score_user(toInt)}"
+    return f"Your score is: {score_user(numberOfRescues)}"
 
 print(rescue())
