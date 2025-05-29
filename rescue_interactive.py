@@ -87,10 +87,10 @@ def rescue():
     print(game_explt)
 
 # Display options for the user
-    print("You can rescue:\n" + display_rescued_animal("cats", cat_names, cat_healthScore))
-    print("You can rescue:\n" + display_rescued_animal("dogs", dog_names, dog_healthScore))
-    print("You can rescue:\n" + display_rescued_animal("cows", cow_names, cow_healthScore))
-    print("You can rescue:\n" + display_rescued_animal("pigs", pig_names, pig_healthScore))
+    print(display_rescued_animal("cats", cat_names, cat_healthScore))
+    print(display_rescued_animal("dogs", dog_names, dog_healthScore))
+    print(display_rescued_animal("cows", cow_names, cow_healthScore))
+    print(display_rescued_animal("pigs", pig_names, pig_healthScore))
 
     # Ask how many pets the user wants to rescue
     while True:
@@ -104,27 +104,17 @@ def rescue():
 # Handle rescue logic
     if toInt == 0:
       print("Minimum to rescue one pet!")
-    elif toInt == 1:
-      pet = input("A cat, a cows, a pig or a dog? ").strip().lower()
-      if pet == 'cat':
-        print(f"The cat's name is: {cat_names[0]}, Health score: {cat_healthScore[0]}, Your score: {score_user()}")
-      elif pet == 'dog':
-        print(f"The dog's name is: {dog_names[0]}, Health score: {dog_healthScore[0]}, Your score: {score_user()}")
-      elif pet == 'cow' or pet == 'cows':
-        print(f"The cow's name is: {cow_names[0]}, Health score: {cow_healthScore[0]}, Your score: {score_user()}")
-      elif pet == 'pig' or pet == 'pigs':
-        print(f"The pig's name is: {pig_names[0]}, Health score: {pig_healthScore[0]}, Your score: {score_user()}")
-      else:
-        print("Invalid choice. Please choose 'cat', 'cow', 'pig' or 'dog'.")
-    else:
-      choice = input("Do you want to rescue cats, cows, pigs, dogs? ").strip().lower()
-    if choice == 'cats':
+    elif toInt >= 1:
+      print(f"You have chosen to rescue {toInt} animals.")
+      choice = input("Do you want to rescue cats, cows, pigs or dogs? ").strip().lower()
+      
+      if choice == 'cats':
         print(display_rescued_animal("cats", cat_names[:toInt], cat_healthScore[:toInt]))
-    elif choice == 'cows':
+      elif choice == 'cows':
         print(display_rescued_animal("cows", cow_names[:toInt], cow_healthScore[:toInt]))
-    elif choice == 'pigs':
+      elif choice == 'pigs':
         print(display_rescued_animal("pigs", pig_names[:toInt], pig_healthScore[:toInt]))
-    elif choice == 'dogs':
+      elif choice == 'dogs':
         print(display_rescued_animal("dogs", dog_names[:toInt], dog_healthScore[:toInt]))
 
     return f"Your score is: {score_user()}"
