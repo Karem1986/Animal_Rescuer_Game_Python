@@ -1,4 +1,3 @@
-from flask import Flask
 from opentelemetry import trace
 from opentelemetry.trace import TracerProvider
 from opentelemetry.sdk.trace import TracerProvider
@@ -22,6 +21,7 @@ otlp_exporter = OTLPSpanExporter(endpoint="http://otel-collector:4317", insecure
 span_processor = BatchSpanProcessor(otlp_exporter)
 trace.get_tracer_provider().add_span_processor(span_processor)
 
+# Add Error handling for the whole program 
 
 user_name = input('Please enter your name')
 
@@ -108,4 +108,13 @@ def rescue():
 
     return f"Your score is: {score_user(numberOfRescues)}"
 
-print(rescue())
+# Implementing Error handling for the rescue function
+try:
+    print(rescue())
+except Exception as e:
+    print(f"An error occurred: {e}")
+    # Optionally, you can log the error or handle it in a specific way
+else:
+    print("Rescue operation completed successfully!")
+finally:
+    print("Thank you for playing! Your rescue mission is complete.")
