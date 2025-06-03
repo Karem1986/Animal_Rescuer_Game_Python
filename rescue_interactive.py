@@ -4,6 +4,7 @@ from opentelemetry.trace import TracerProvider
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+from test import cows, pigs, dogs, cats
 
 # For monitoring with Grafana
 from prometheus_client import start_http_server
@@ -20,6 +21,7 @@ tracer = trace.get_tracer(__name__)
 otlp_exporter = OTLPSpanExporter(endpoint="http://otel-collector:4317", insecure=True)
 span_processor = BatchSpanProcessor(otlp_exporter)
 trace.get_tracer_provider().add_span_processor(span_processor)
+
 
 user_name = input('Please enter your name')
 
@@ -48,6 +50,9 @@ pig_healthScore = [3, 6, 9, 7, 5, 2, 1, 1, 2, 3]
 dog_names = ['Kermit', 'Leia', 'Bobby', 'Tiger', 'Asos', 'Guizmo', 'Suffo', 'Marraket', 'Kiki', 'Ursula']
 dog_age = [3, 8, 12, 1, 4, 8, 2, 2, 8, 4]
 dog_healthScore = [3, 6, 9, 7, 5, 2, 1, 1, 2, 3]
+
+# Testing the functions
+print("cows", cows(cow_names, cow_healthScore))
 
 def display_rescued_animal(animal_type, names, health_scores):
     # Create a string to display the animals
@@ -93,13 +98,13 @@ def rescue():
       choice = input("Do you want to rescue cats, cows, pigs or dogs? ").strip().lower()
       
       if choice == 'cats':
-        print(display_rescued_animal("cats", cat_names[:numberOfRescues], cat_healthScore[:numberOfRescues]))
+        print("cats", cats(cat_names[:numberOfRescues], cat_healthScore[:numberOfRescues]))
       elif choice == 'cows':
-        print(display_rescued_animal("cows", cow_names[:numberOfRescues], cow_healthScore[:numberOfRescues]))
+        print("cows", cows(cow_names[:numberOfRescues], cow_healthScore[:numberOfRescues]))
       elif choice == 'pigs':
-        print(display_rescued_animal("pigs", pig_names[:numberOfRescues], pig_healthScore[:numberOfRescues]))
+        print("pigs", pigs(pig_names[:numberOfRescues], pig_healthScore[:numberOfRescues]))
       elif choice == 'dogs':
-        print(display_rescued_animal("dogs", dog_names[:numberOfRescues], dog_healthScore[:numberOfRescues]))
+        print("dogs", dogs(dog_names[:numberOfRescues], dog_healthScore[:numberOfRescues]))
 
     return f"Your score is: {score_user(numberOfRescues)}"
 
