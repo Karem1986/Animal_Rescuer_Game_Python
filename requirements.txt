@@ -1,6 +1,6 @@
+flask
 opentelemetry-api
 opentelemetry-sdk
 opentelemetry-exporter-otlp
 prometheus_client
 opentelemetry-exporter-otlp-proto-grpc
-flask
