@@ -1,26 +1,24 @@
-from flask import Flask, render_template_string, request, redirect, url_for
-from opentelemetry import trace
-from opentelemetry.trace import TracerProvider
-from opentelemetry.sdk.trace import export, TracerProvider
-from opentelemetry.sdk.trace.export import BatchSpanProcessor
-from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
-import time
+from flask import Flask, render_template_string, request, redirect
+# For monitoring with Grafana for visualization
+from prometheus_client import start_http_server, Counter 
 
-# For monitoring with Grafana
-from prometheus_client import start_http_server, Counter, Summary
+# Prometheus counter to track how often endpoints are hit
+API_HIT_COUNT = Counter('api_hit_count', 'Number of hits to rescue API', ['path'])
+
+# Flask app
+app = Flask(__name__)
+
+@app.route('/api')
+@app.route('/apis')
+def handle_api_probe():
+    path = request.path 
+    API_HIT_COUNT.labels(path=path).inc()
 
 # Start a Prometheus metrics server on port 8000
 start_http_server(8000)
 print("Prometheus metrics server started on port 8000")
 
-# Initialize OpenTelemetry tracing
-trace.set_tracer_provider(TracerProvider())
-tracer = trace.get_tracer(__name__)
-
-# Configure the OTLP exporter to deploy with kubernetes, otel-collector is the service name to connect with Kubernetes
-otlp_exporter = OTLPSpanExporter(endpoint="http://otel-collector:4317", insecure=True)
-span_processor = BatchSpanProcessor(otlp_exporter)
-trace.get_tracer_provider().add_span_processor(span_processor)
+RESCUE_COUNT = Counter('animal_rescue_count', 'Number of animals rescued', ['animal_type'])
 
 # Create a Flask app
 app = Flask(__name__)
@@ -478,7 +476,6 @@ def result():
     with tracer.start_as_current_span("rescue_result"):
         # Track the animal rescue in Prometheus
         # Using Counter metrics for monitoring rescues
-        RESCUE_COUNT = Counter('animal_rescue_count', 'Number of animals rescued', ['animal_type'])
         RESCUE_COUNT.labels(animal_type=animal_type).inc(count)
         
         result_message = ""
@@ -526,7 +523,7 @@ def result():
             username=username
         )
 
-# Memory crash simulation function - commented out but can be enabled for testing
+# Memory crash simulation function, commented out but can be enabled for testing
 """
 def memory_crash():
     data = []

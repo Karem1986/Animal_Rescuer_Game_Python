@@ -6,7 +6,7 @@ docker build -t karin86/pythonapp:latest .
 
 docker run -it -p 8080:5000 -p 8000:8000 karin86/pythonapp:latest
 
-# Flask web based application
+## Flask web based application
 
 The flask_web_App file is configured to run as a Flask web app in the browser (See Dockerfile)
 
@@ -16,7 +16,7 @@ The flask_web_App file is configured to run as a Flask web app in the browser (S
 
 Access via localhost:8080 (See Dockerfile)
 
-# Adding new changes/extending the application
+## Adding new changes/extending the application
 
 If adding any changes to the application, dockerfile or yaml files execute the following commands afterwards:
 
@@ -28,7 +28,7 @@ If adding any changes to the application, dockerfile or yaml files execute the f
 - Confirm that the pod has been restarted:
     kubectl get pods -n testingopentelemetry
 - Check the memory crash:
-    kubectl describe pod <pod-name> -n testingopentelemetry
+    kubectl describe pod pod-name -n testingopentelemetry
 
 You should see something similar to this under the Container section:
 
