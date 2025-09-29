@@ -1,27 +1,4 @@
-from opentelemetry import trace
-from opentelemetry.trace import TracerProvider
-from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.trace.export import BatchSpanProcessor
-from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
-from test import cows, pigs, dogs, cats
-
-# For monitoring with Grafana
-from prometheus_client import start_http_server
-
-# Start a Prometheus metrics server on port 8000
-start_http_server(8000)
-print("Prometheus metrics server started on port 8000")
-
-# Initialize OpenTelemetry tracing
-trace.set_tracer_provider(TracerProvider())
-tracer = trace.get_tracer(__name__)
-
-# Configure the OTLP exporter to deploy with kubernetes, otel-collector is the service name to connect with Kubernetes
-otlp_exporter = OTLPSpanExporter(endpoint="http://otel-collector:4317", insecure=True)
-span_processor = BatchSpanProcessor(otlp_exporter)
-trace.get_tracer_provider().add_span_processor(span_processor)
-
-# Add Error handling for the whole program 
+# TO TEST AND EXPERIMENT WITH NEW PYTHON TOOLS:
 
 user_name = input('Please enter your name')
 
@@ -52,7 +29,7 @@ dog_age = [3, 8, 12, 1, 4, 8, 2, 2, 8, 4]
 dog_healthScore = [3, 6, 9, 7, 5, 2, 1, 1, 2, 3]
 
 # Testing the functions
-print("cows", cows(cow_names, cow_healthScore))
+print("cows", cow_names, cow_healthScore)
 
 def display_rescued_animal(animal_type, names, health_scores):
     # Create a string to display the animals
@@ -98,13 +75,13 @@ def rescue():
       choice = input("Do you want to rescue cats, cows, pigs or dogs? ").strip().lower()
       
       if choice == 'cats':
-        print("cats", cats(cat_names[:numberOfRescues], cat_healthScore[:numberOfRescues]))
+        print("cats", cat_names[:numberOfRescues], cat_healthScore[:numberOfRescues])
       elif choice == 'cows':
-        print("cows", cows(cow_names[:numberOfRescues], cow_healthScore[:numberOfRescues]))
+        print("cows", cow_names[:numberOfRescues], cow_healthScore[:numberOfRescues])
       elif choice == 'pigs':
-        print("pigs", pigs(pig_names[:numberOfRescues], pig_healthScore[:numberOfRescues]))
+        print("pigs", pig_names[:numberOfRescues], pig_healthScore[:numberOfRescues])
       elif choice == 'dogs':
-        print("dogs", dogs(dog_names[:numberOfRescues], dog_healthScore[:numberOfRescues]))
+        print("dogs", dog_names[:numberOfRescues], dog_healthScore[:numberOfRescues])
 
     return f"Your score is: {score_user(numberOfRescues)}"
 
