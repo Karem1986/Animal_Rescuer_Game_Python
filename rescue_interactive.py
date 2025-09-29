@@ -113,7 +113,6 @@ try:
     print(rescue())
 except Exception as e:
     print(f"An error occurred: {e}")
-    # Optionally, you can log the error or handle it in a specific way
 else:
     print("Rescue operation completed successfully!")
 finally:

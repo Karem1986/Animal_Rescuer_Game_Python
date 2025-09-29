@@ -1,11 +1,11 @@
-from flask import Flask, render_template_string, request, redirect, url_for
+from flask import Flask, render_template_string, request, redirect
 from opentelemetry import trace
 from opentelemetry.trace import TracerProvider
-from opentelemetry.sdk.trace import export, TracerProvider
+from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
 
-# For monitoring with Grafana
+# Monitoring with Grafana
 from prometheus_client import start_http_server, Counter
 
 # Start a Prometheus metrics server on port 8000
@@ -524,18 +524,6 @@ def result():
             score=final_score,
             username=username
         )
-
-# Memory crash simulation function - commented out but can be enabled for testing
-"""
-def memory_crash():
-    data = []
-    counter = 0
-    while True:
-        data.append(" " * 10**6)  # Allocate 1MB of memory
-        counter += 1
-        print(f"Allocated {counter} MB of memory")
-        time.sleep(0.1)
-"""
 
 # Run the app
 if __name__ == '__main__':

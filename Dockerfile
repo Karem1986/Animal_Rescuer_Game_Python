@@ -1,5 +1,5 @@
 # Use a Python base image
-FROM python:3.9-slim
+FROM python:slim-trixie
 
 # Set the working directory
 WORKDIR /app
@@ -11,9 +11,14 @@ COPY . /app
 COPY requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Following container security best practices by creating a dedicated system user with no root access. This minimizes riskS.
+RUN groupadd -r rescue && useradd --no-log-init -r -g rescue rescue
+RUN chown -R rescue:rescue /app
+USER rescue
+
 # Expose the application on:
 EXPOSE 8080
 
 # Run the application
 # CMD ["python", "rescue_interactive.py"]
-CMD ["python", "flask_web_app.py"]
+CMD ["python", "app/index.py"]

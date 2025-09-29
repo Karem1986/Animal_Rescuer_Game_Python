@@ -8,7 +8,7 @@ docker run -it -p 8080:5000 -p 8000:8000 karin86/pythonapp:latest
 
 ## Flask web based application
 
-The flask_web_App file is configured to run as a Flask web app in the browser (See Dockerfile)
+The flask app file is configured to run as a Flask web app in the browser (See Dockerfile)
 
     docker build -t karin86/pythonapp:latest .
     docker run -p 8080:5000 -p 8000:8000 karin86/pythonapp:latest
