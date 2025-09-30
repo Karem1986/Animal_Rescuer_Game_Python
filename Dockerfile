@@ -20,5 +20,4 @@ USER rescue
 EXPOSE 8080
 
 # Run the application
-# CMD ["python", "rescue_interactive.py"]
-CMD ["python", "app/index.py"]
+CMD ["gunicorn", "-b", "0.0.0.0:8080", "app.index:app"]
