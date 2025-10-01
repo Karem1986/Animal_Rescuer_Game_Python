@@ -1,10 +1,19 @@
-# Running this application locally on your machine as an Interactive application (NOT FLASK WEB BASED)
+# Goal of this app
 
-Make sure the requirements.txt has all dependencies needed and the Dockerfile uses the rescue_interactive.py file.
+The goal of this app is to show Python skills with the Flask frontend web framework deployed to a cloud server.
 
-docker build -t karin86/pythonapp:latest .
+The project lives at: <https://animal-rescuer-game-python.onrender.com>
 
-docker run -it -p 8080:5000 -p 8000:8000 karin86/pythonapp:latest
+As a cloud service, Render was the choice since it makes easy to run Docker containerized applications. One thing to note is that in Render the recommended server is gunicorn which is defined in the
+Dockerfile like this:
+
+CMD ["gunicorn", "-b", "0.0.0.0:8080", "app.index:app"]
+
+And then in your Render dashboard project settings you change the "start command" to:
+
+gunicorn app.index:app
+
+This This tells Docker: “Run Gunicorn, bind to port 8080, and serve the app object from app/index.py.”
 
 ## Flask web based application
 
@@ -18,7 +27,7 @@ Access via localhost:8080 (See Dockerfile)
 
 ## Adding new changes/extending the application
 
-If adding any changes to the application, dockerfile or yaml files execute the following commands afterwards:
+If adding any changes to the application, dockerfile execute the following commands afterwards:
 
 - Rebuild and push the image to docker hub registry:
     docker build -t karin86/pythonapp:latest .

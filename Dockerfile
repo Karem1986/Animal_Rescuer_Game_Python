@@ -19,5 +19,5 @@ USER rescue
 # Expose the application on:
 EXPOSE 8080
 
-# Run the application
+# Run the application, in Docker container we are using gunicorn as our start command in order to deploy it with Render
 CMD ["gunicorn", "-b", "0.0.0.0:8080", "app.index:app"]
