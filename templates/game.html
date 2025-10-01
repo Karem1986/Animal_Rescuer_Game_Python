@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animal Rescuer Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+            color: #333;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .button:hover {
+            background-color: #2980b9;
+        }
+        .animal-info {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #eee;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Start the game!</h1>
+        <p>You've chosen to rescue {{ count }} animal(s).</p>
+        
+        {% if count == 1 %}
+            <form action="/result" method="post">
+                <h2>Select one animal to rescue:</h2>
+                
+                <div class="radio-group">
+                    <input type="radio" id="cat" name="animal_type" value="cat" required>
+                    <label for="cat">Cat</label>
+                </div>
+                
+                <div class="radio-group">
+                    <input type="radio" id="dog" name="animal_type" value="dog">
+                    <label for="dog">Dog</label>
+                </div>
+                
+                <div class="radio-group">
+                    <input type="radio" id="cow" name="animal_type" value="cow">
+                    <label for="cow">Cow</label>
+                </div>
+                
+                <div class="radio-group">
+                    <input type="radio" id="pig" name="animal_type" value="pig">
+                    <label for="pig">Pig</label>
+                </div>
+                
+                <input type="hidden" name="count" value="1">
+                <input type="hidden" name="username" value="{{ username }}">
+                <button type="submit" class="button">Rescue</button>
+            </form>
+        {% else %}
+            <form action="/result" method="post">
+                <h2>Select which type of animals to rescue:</h2>
+                
+                <div class="radio-group">
+                    <input type="radio" id="cats" name="animal_type" value="cats" required>
+                    <label for="cats">Cats</label>
+                </div>
+                
+                <div class="radio-group">
+                    <input type="radio" id="dogs" name="animal_type" value="dogs">
+                    <label for="dogs">Dogs</label>
+                </div>
+                
+                <div class="radio-group">
+                    <input type="radio" id="cows" name="animal_type" value="cows">
+                    <label for="cows">Cows</label>
+                </div>
+                
+                <div class="radio-group">
+                    <input type="radio" id="pigs" name="animal_type" value="pigs">
+                    <label for="pigs">Pigs</label>
+                </div>
+                
+                <input type="hidden" name="count" value="{{ count }}">
+                <input type="hidden" name="username" value="{{ username }}">
+                <button type="submit" class="button">Rescue</button>
+            </form>
+        {% endif %}
+    </div>
+</body>
+</html>

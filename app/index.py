@@ -1,4 +1,4 @@
-from flask import Flask, render_template_string, request, redirect
+from flask import Flask, render_template_string, redirect, request, jsonify, render_template, request, url_for, redirect
 
 # Monitoring with Prometheus and Grafana
 from prometheus_client import start_http_server, Counter
@@ -507,6 +507,5 @@ def result():
             username=username
         )
 
-# Run the app
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=False)

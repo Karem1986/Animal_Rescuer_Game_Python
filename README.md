@@ -1,6 +1,6 @@
 # Goal of this app
 
-The goal of this app is to show Python skills with the Flask frontend web framework deployed to a cloud server.
+The goal of this app is to show Python skills with the Flask frontend web framework deployed to Render cloud server.
 
 The project lives at: <https://animal-rescuer-game-python.onrender.com>
 
@@ -9,11 +9,13 @@ Dockerfile like this:
 
 CMD ["gunicorn", "-b", "0.0.0.0:8080", "app.index:app"]
 
-And then in your Render dashboard project settings you change the "start command" to:
+This This tells Docker: “Run Gunicorn, bind to port 8080, and serve the app object from app/index.py.”
+
+And then in your Render dashboard project settings change the "start command" to:
 
 gunicorn app.index:app
 
-This This tells Docker: “Run Gunicorn, bind to port 8080, and serve the app object from app/index.py.”
+More information about deployment in Render: <https://render.com/docs/deploys#deploy-steps>
 
 ## Flask web based application
 
