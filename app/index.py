@@ -1,25 +1,11 @@
 from flask import Flask, render_template_string, request, redirect
-from opentelemetry import trace
-from opentelemetry.trace import TracerProvider
-from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.trace.export import BatchSpanProcessor
-from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
 
-# Monitoring with Grafana
+# Monitoring with Prometheus and Grafana
 from prometheus_client import start_http_server, Counter
 
 # Start a Prometheus metrics server on port 8000
 start_http_server(8000)
 print("Prometheus metrics server started on port 8000")
-
-# Initialize OpenTelemetry tracing
-trace.set_tracer_provider(TracerProvider())
-tracer = trace.get_tracer(__name__)
-
-# Configure the OTLP exporter to deploy with kubernetes, otel-collector is the service name to connect with Kubernetes
-otlp_exporter = OTLPSpanExporter(endpoint="http://otel-collector:4317", insecure=True)
-span_processor = BatchSpanProcessor(otlp_exporter)
-trace.get_tracer_provider().add_span_processor(span_processor)
 
 # Create a Flask app
 app = Flask(__name__)
@@ -35,7 +21,7 @@ cow_names = ['Bella', 'Leia', 'Madonna', 'Bobby', 'Tiger', 'Asos', 'Guizmo', 'Su
 cow_age = [3, 8, 12, 1, 4, 8, 2, 2, 8, 4]
 cow_healthScore = [3, 6, 9, 7, 5, 2, 1, 1, 2, 3]
 pig_names = ['Babe', 'Tomillito', 'Patrizio', 'Lindo', 'Asos', 'Guizmo', 'Suffo', 'Marraket', 'Kiki', 'Ursula']
-pig_age = [3, 8, 12, 1, 4, 8, 2, 2, 8, 4]  # Fixed the incomplete pig_age array
+pig_age = [3, 8, 12, 1, 4, 8, 2, 2, 8, 4] 
 pig_healthScore = [3, 6, 9, 7, 5, 2, 1, 1, 2, 3]
 dog_names = ['Kermit', 'Leia', 'Bobby', 'Tiger', 'Asos', 'Guizmo', 'Suffo', 'Marraket', 'Kiki', 'Ursula']
 dog_age = [3, 8, 12, 1, 4, 8, 2, 2, 8, 4]
@@ -441,20 +427,20 @@ def index():
 def welcome():
     username = request.form.get('username', '')
     
+    # Username check
     if username.isdigit():
         return render_template_string(index_template, error="Please enter a valid name, not a number.")
     
-    with tracer.start_as_current_span("welcome_page"):
-        return render_template_string(welcome_template, 
-            username=username,
-            cats_names=', '.join(cat_names),
-            cats_health=', '.join(map(str, cat_healthScore)),
-            dogs_names=', '.join(dog_names),
-            dogs_health=', '.join(map(str, dog_healthScore)),
-            cows_names=', '.join(cow_names),
-            cows_health=', '.join(map(str, cow_healthScore)),
-            pigs_names=', '.join(pig_names),
-            pigs_health=', '.join(map(str, pig_healthScore))
+    return render_template_string(welcome_template, 
+        username=username,
+        cats_names=', '.join(cat_names),
+        cats_health=', '.join(map(str, cat_healthScore)),
+        dogs_names=', '.join(dog_names),
+        dogs_health=', '.join(map(str, dog_healthScore)),
+        cows_names=', '.join(cow_names),
+        cows_health=', '.join(map(str, cow_healthScore)),
+        pigs_names=', '.join(pig_names),
+        pigs_health=', '.join(map(str, pig_healthScore))
         )
 
 @app.route('/rescue', methods=['POST'])
@@ -465,31 +451,27 @@ def rescue():
     if count < 1:
         return redirect('/')
     
-    with tracer.start_as_current_span("rescue_selection"):
-        return render_template_string(rescue_template, count=count, username=username)
+    return render_template_string(rescue_template, count=count, username=username)
 
 @app.route('/result', methods=['POST'])
 def result():
     animal_type = request.form.get('animal_type', '')
     count = int(request.form.get('count', 1))
     username = request.form.get('username', 'Player')
-    
-    with tracer.start_as_current_span("rescue_result"):
-        # Track the animal rescue in Prometheus
-        # Using Counter metrics for monitoring rescues
-        RESCUE_COUNT = Counter('animal_rescue_count', 'Number of animals rescued', ['animal_type'])
-        RESCUE_COUNT.labels(animal_type=animal_type).inc(count)
+
+    RESCUE_COUNT = Counter('animal_rescue_count', 'Number of animals rescued', ['animal_type'])
+    RESCUE_COUNT.labels(animal_type=animal_type).inc(count)
         
-        result_message = ""
+    result_message = ""
         
-        if count == 1:
-            if animal_type == 'cat':
+    if count == 1:
+        if animal_type == 'cat':
                 result_message = f"<div class='animal-item'>Cat's name: {cat_names[0]}, Health score: {cat_healthScore[0]}</div>"
-            elif animal_type == 'dog':
+        elif animal_type == 'dog':
                 result_message = f"<div class='animal-item'>Dog's name: {dog_names[0]}, Health score: {dog_healthScore[0]}</div>"
-            elif animal_type == 'cow':
+        elif animal_type == 'cow':
                 result_message = f"<div class='animal-item'>Cow's name: {cow_names[0]}, Health score: {cow_healthScore[0]}</div>"
-            elif animal_type == 'pig':
+        elif animal_type == 'pig':
                 result_message = f"<div class='animal-item'>Pig's name: {pig_names[0]}, Health score: {pig_healthScore[0]}</div>"
         else:
             if animal_type == 'cats':
