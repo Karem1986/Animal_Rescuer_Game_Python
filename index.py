@@ -141,79 +141,6 @@ welcome_template = """
 </html>
 """
 
-result_template = """
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Animal Rescuer Game</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            line-height: 1.6;
-            color: #333;
-        }
-        h1, h2 {
-            color: #2c3e50;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .score {
-            font-size: 24px;
-            font-weight: bold;
-            color: #e74c3c;
-            margin: 20px 0;
-        }
-        .button {
-            background-color: #3498db;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 20px;
-        }
-        .button:hover {
-            background-color: #2980b9;
-        }
-        .rescued-animals {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #eee;
-            border-radius: 4px;
-        }
-        .animal-item {
-            margin-bottom: 10px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Rescue Complete!</h1>
-        
-        <div class="rescued-animals">
-            <h2>Rescued Animals:</h2>
-            {{ result_message }}
-        </div>
-        
-        <div class="score">
-            Your final score: {{ score }}
-        </div>
-        
-        <a href="/" class="button">Play Again</a>
-    </div>
-</body>
-</html>
-"""
 
 # Routes
 @app.route('/')
@@ -272,35 +199,35 @@ def result():
                 result_message = f"<div class='animal-item'>Cow's name: {cow_names[0]}, Health score: {cow_healthScore[0]}</div>"
         elif animal_type == 'pig':
                 result_message = f"<div class='animal-item'>Pig's name: {pig_names[0]}, Health score: {pig_healthScore[0]}</div>"
-        else:
-            if animal_type == 'cats':
-                names_list = cat_names[:count]
-                health_list = cat_healthScore[:count]
-                result_message = "<h3>Cats:</h3>"
-                for i in range(count):
-                    result_message += f"<div class='animal-item'>Name: {names_list[i]}, Health score: {health_list[i]}</div>"
-            elif animal_type == 'dogs':
-                names_list = dog_names[:count]
-                health_list = dog_healthScore[:count]
-                result_message = "<h3>Dogs:</h3>"
-                for i in range(count):
-                    result_message += f"<div class='animal-item'>Name: {names_list[i]}, Health score: {health_list[i]}</div>"
-            elif animal_type == 'cows':
-                names_list = cow_names[:count]
-                health_list = cow_healthScore[:count]
-                result_message = "<h3>Cows:</h3>"
-                for i in range(count):
-                    result_message += f"<div class='animal-item'>Name: {names_list[i]}, Health score: {health_list[i]}</div>"
-            elif animal_type == 'pigs':
-                names_list = pig_names[:count]
-                health_list = pig_healthScore[:count]
-                result_message = "<h3>Pigs:</h3>"
-                for i in range(count):
-                    result_message += f"<div class='animal-item'>Name: {names_list[i]}, Health score: {health_list[i]}</div>"
+    else:
+        if animal_type == 'cats':
+            names_list = cat_names[:count]
+            health_list = cat_healthScore[:count]
+            result_message = "<h3>Cats:</h3>"
+            for i in range(count):
+                result_message += f"<div class='animal-item'>Name: {names_list[i]}, Health score: {health_list[i]}</div>"
+        elif animal_type == 'dogs':
+            names_list = dog_names[:count]
+            health_list = dog_healthScore[:count]
+            result_message = "<h3>Dogs:</h3>"
+            for i in range(count):
+                result_message += f"<div class='animal-item'>Name: {names_list[i]}, Health score: {health_list[i]}</div>"
+        elif animal_type == 'cows':
+            names_list = cow_names[:count]
+            health_list = cow_healthScore[:count]
+            result_message = "<h3>Cows:</h3>"
+            for i in range(count):
+                result_message += f"<div class='animal-item'>Name: {names_list[i]}, Health score: {health_list[i]}</div>"
+        elif animal_type == 'pigs':
+            names_list = pig_names[:count]
+            health_list = pig_healthScore[:count]
+            result_message = "<h3>Pigs:</h3>"
+            for i in range(count):
+                result_message += f"<div class='animal-item'>Name: {names_list[i]}, Health score: {health_list[i]}</div>"
         
         final_score = score_user() * count  # Calculate score based on count
         
-        return render_template_string(result_template, 
+        return render_template("results.html", 
             result_message=result_message,
             score=final_score,
             username=username

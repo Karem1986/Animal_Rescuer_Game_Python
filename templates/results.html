@@ -2,58 +2,82 @@
 <html>
 <head>
     <title>Animal Rescuer Game</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            line-height: 1.6;
-            color: #333;
-        }
-        h1 {
-            color: #2c3e50;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        .button {
-            background-color: #3498db;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .button:hover {
-            background-color: #2980b9;
-        }
-        .radio-group {
-            margin-bottom: 15px;
-        }
-        .radio-group label {
-            display: inline;
-            margin-left: 5px;
-        }
-        .animal-info {
-            margin-bottom: 20px;
-            padding: 10px;
-            background-color: #eee;
-            border-radius: 4px;
-        }
-    </style>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #ecf0f1;
+        color: #2c3e50;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+        font-size: 32px;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #34495e;
+    }
+
+    h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+        color: #3498db;
+    }
+
+    .rescued-animals {
+        margin-top: 20px;
+        padding: 20px;
+        background-color: #f0f8ff;
+        border-left: 6px solid #3498db;
+        border-radius: 8px;
+    }
+
+    .animal-item {
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 12px;
+        margin-bottom: 10px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .score {
+        font-size: 22px;
+        font-weight: bold;
+        color: #27ae60;
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .button {
+        display: block;
+        width: fit-content;
+        margin: 30px auto 0;
+        background-color: #3498db;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+        background-color: #2980b9;
+    }
+</style>
+
 </head>
 
 <body>
@@ -62,7 +86,7 @@
         
         <div class="rescued-animals">
             <h2>Rescued Animals:</h2>
-            {{ result_message }}
+            {{ result_message | safe  }}
         </div>
         
         <div class="score">
