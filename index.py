@@ -13,17 +13,17 @@ app = Flask(__name__)
 # Initialize score for tracking game progress
 SCORE = 0
 
-# Animal data
-cat_names = ['Kermit', 'Leia', 'Bobby', 'Tiger', 'Asos', 'Guizmo', 'Suffo', 'Marraket', 'Kiki', 'Ursula']
+# Animal data---PostgreSQL DATABASE LATER
+cat_names = ['Pim', 'Leia', 'Vincent', 'Sander', 'Lucas', 'Marco', 'Suffo', 'Marraket', 'Kiki', 'Ursula']
 cat_age = [3, 8, 12, 1, 4, 8, 2, 2, 8, 4]
 cat_healthScore = [3, 6, 9, 7, 5, 2, 1, 1, 2, 3]
-cow_names = ['Bella', 'Leia', 'Madonna', 'Bobby', 'Tiger', 'Asos', 'Guizmo', 'Suffo', 'Marraket', 'Kiki']
+cow_names = ['Bella', 'Leia', 'Madonna', 'Melanie', 'Kasia', 'Natalia', 'Jasper', 'Suffo', 'Marraket', 'Kiki']
 cow_age = [3, 8, 12, 1, 4, 8, 2, 2, 8, 4]
 cow_healthScore = [3, 6, 9, 7, 5, 2, 1, 1, 2, 3]
-pig_names = ['Babe', 'Tomillito', 'Patrizio', 'Lindo', 'Asos', 'Guizmo', 'Suffo', 'Marraket', 'Kiki', 'Ursula']
+pig_names = ['Andres', 'Aiko', 'Gerrit', 'Lindo', 'Asos', 'Guizmo', 'Suffo', 'Marraket', 'Kiki', 'Ursula']
 pig_age = [3, 8, 12, 1, 4, 8, 2, 2, 8, 4] 
 pig_healthScore = [3, 6, 9, 7, 5, 2, 1, 1, 2, 3]
-dog_names = ['Kermit', 'Leia', 'Bobby', 'Tiger', 'Asos', 'Guizmo', 'Suffo', 'Marraket', 'Kiki', 'Ursula']
+dog_names = ['Floris', 'Leia', 'Bobby', 'Tiger', 'Asos', 'Guizmo', 'Suffo', 'Marraket', 'Kiki', 'Ursula']
 dog_age = [3, 8, 12, 1, 4, 8, 2, 2, 8, 4]
 dog_healthScore = [3, 6, 9, 7, 5, 2, 1, 1, 2, 3]
 
@@ -36,87 +36,7 @@ def score_user():
 def reset_score():
     global SCORE
     SCORE = 0
-
-# HTML Templates
-# index_template = """
-# <!DOCTYPE html>
-# <html>
-# <head>
-#     <title>Animal Rescuer Game</title>
-#     <style>
-#         body {
-#             font-family: Arial, sans-serif;
-#             margin: 40px;
-#             line-height: 1.6;
-#             color: #333;
-#         }
-#         h1 {
-#             color: #2c3e50;
-#         }
-#         .container {
-#             max-width: 800px;
-#             margin: 0 auto;
-#             padding: 20px;
-#             background-color: #f9f9f9;
-#             border-radius: 8px;
-#             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-#         }
-#         .form-group {
-#             margin-bottom: 20px;
-#         }
-#         label {
-#             display: block;
-#             margin-bottom: 5px;
-#             font-weight: bold;
-#         }
-#         input[type="text"], input[type="number"] {
-#             width: 100%;
-#             padding: 10px;
-#             border: 1px solid #ddd;
-#             border-radius: 4px;
-#         }
-#         .button {
-#             background-color: #3498db;
-#             color: white;
-#             padding: 10px 15px;
-#             border: none;
-#             border-radius: 4px;
-#             cursor: pointer;
-#             font-size: 16px;
-#         }
-#         .button:hover {
-#             background-color: #2980b9;
-#         }
-#         .error {
-#             color: #e74c3c;
-#         }
-#         .animal-info {
-#             margin-bottom: 20px;
-#             padding: 10px;
-#             background-color: #eee;
-#             border-radius: 4px;
-#         }
-#     </style>
-# </head>
-# <body>
-#     <div class="container">
-#         <h1>Animal Rescuer Game</h1>
-#         <p>Welcome to the Animal Rescuer Game! Enter your name to start.</p>
-#         {% if error %}
-#             <p class="error">{{ error }}</p>
-#         {% endif %}
-#         <form action="/welcome" method="post">
-#             <div class="form-group">
-#                 <label for="username">Your Name:</label>
-#                 <input type="text" id="username" name="username" required>
-#             </div>
-#             <button type="submit" class="button">Start Game</button>
-#         </form>
-#     </div>
-# </body>
-# </html>
-# """
-
+    
 welcome_template = """
 <!DOCTYPE html>
 <html>
@@ -205,139 +125,17 @@ welcome_template = """
             <p>Health scores: {{ pigs_health }}</p>
         </div>
         
-        <form action="/rescue" method="post">
+        <form method="POST" action="{{ url_for('game') }}">
             <div class="form-group">
-                <label for="rescue_count">How many animals can you rescue?</label>
-                <input type="number" id="rescue_count" name="rescue_count" min="1" required>
+                 <label>How many animals can you rescue?</label>
+                 <input type="number" id="rescue_count" name="rescue_count" min="1" required>
                 <input type="hidden" name="username" value="{{ username }}">
             </div>
-            <button type="submit" class="button">Continue</button>
-        </form>
-    </div>
-</body>
-</html>
-"""
 
-rescue_template = """
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Animal Rescuer Game</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            line-height: 1.6;
-            color: #333;
-        }
-        h1 {
-            color: #2c3e50;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        .button {
-            background-color: #3498db;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .button:hover {
-            background-color: #2980b9;
-        }
-        .radio-group {
-            margin-bottom: 15px;
-        }
-        .radio-group label {
-            display: inline;
-            margin-left: 5px;
-        }
-        .animal-info {
-            margin-bottom: 20px;
-            padding: 10px;
-            background-color: #eee;
-            border-radius: 4px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Animal Rescue Selection</h1>
-        <p>You've chosen to rescue {{ count }} animal(s).</p>
+        <button type="submit" class="button">Continue</button>
         
-        {% if count == 1 %}
-            <form action="/result" method="post">
-                <h2>Select one animal to rescue:</h2>
-                
-                <div class="radio-group">
-                    <input type="radio" id="cat" name="animal_type" value="cat" required>
-                    <label for="cat">Cat</label>
-                </div>
-                
-                <div class="radio-group">
-                    <input type="radio" id="dog" name="animal_type" value="dog">
-                    <label for="dog">Dog</label>
-                </div>
-                
-                <div class="radio-group">
-                    <input type="radio" id="cow" name="animal_type" value="cow">
-                    <label for="cow">Cow</label>
-                </div>
-                
-                <div class="radio-group">
-                    <input type="radio" id="pig" name="animal_type" value="pig">
-                    <label for="pig">Pig</label>
-                </div>
-                
-                <input type="hidden" name="count" value="1">
-                <input type="hidden" name="username" value="{{ username }}">
-                <button type="submit" class="button">Rescue</button>
-            </form>
-        {% else %}
-            <form action="/result" method="post">
-                <h2>Select which type of animals to rescue:</h2>
-                
-                <div class="radio-group">
-                    <input type="radio" id="cats" name="animal_type" value="cats" required>
-                    <label for="cats">Cats</label>
-                </div>
-                
-                <div class="radio-group">
-                    <input type="radio" id="dogs" name="animal_type" value="dogs">
-                    <label for="dogs">Dogs</label>
-                </div>
-                
-                <div class="radio-group">
-                    <input type="radio" id="cows" name="animal_type" value="cows">
-                    <label for="cows">Cows</label>
-                </div>
-                
-                <div class="radio-group">
-                    <input type="radio" id="pigs" name="animal_type" value="pigs">
-                    <label for="pigs">Pigs</label>
-                </div>
-                
-                <input type="hidden" name="count" value="{{ count }}">
-                <input type="hidden" name="username" value="{{ username }}">
-                <button type="submit" class="button">Rescue</button>
-            </form>
-        {% endif %}
+        </form>
+
     </div>
 </body>
 </html>
@@ -423,46 +221,36 @@ def index():
     reset_score()  # Reset score, start from 0 at the beginning!
     return render_template("home.html")
 
-# @app.route("/<username>", methods=['POST'])
-# def welcome(username):
-#     return render_template("welcome.html", username=username,
-#         cats_names=', '.join(cat_names),
-#         cats_health=', '.join(map(str, cat_healthScore)),
-#         dogs_names=', '.join(dog_names),
-#         dogs_health=', '.join(map(str, dog_healthScore)),
-#         cows_names=', '.join(cow_names),
-#         cows_health=', '.join(map(str, cow_healthScore)),
-#         pigs_names=', '.join(pig_names),
-#         pigs_health=', '.join(map(str, pig_healthScore)))
 @app.route('/<username>', methods=['POST'])
 def welcome(username):
     username = request.form.get('username', '')
     
     # Username check
     if username.isdigit():
-        return render_template_string(render_template("welcome.html"), error="Please enter a valid name, not a number.")
+        return render_template_string(welcome_template, error="Please enter a valid name, not a number.")
     
-    return render_template_string(welcome_template, 
-        username=username,
-        cats_names=', '.join(cat_names),
-        cats_health=', '.join(map(str, cat_healthScore)),
-        dogs_names=', '.join(dog_names),
-        dogs_health=', '.join(map(str, dog_healthScore)),
-        cows_names=', '.join(cow_names),
-        cows_health=', '.join(map(str, cow_healthScore)),
-        pigs_names=', '.join(pig_names),
-        pigs_health=', '.join(map(str, pig_healthScore))
-        )
+    return render_template_string(welcome_template,  
+    username=username,
+    cats_names=', '.join(cat_names),
+    cats_health=', '.join(map(str, cat_healthScore)),
+    dogs_names=', '.join(dog_names),
+    dogs_health=', '.join(map(str, dog_healthScore)),
+    cows_names=', '.join(cow_names),
+    cows_health=', '.join(map(str, cow_healthScore)),
+    pigs_names=', '.join(pig_names),
+    pigs_health=', '.join(map(str, pig_healthScore))
+    )
+    
 
-@app.route('/rescue', methods=['POST'])
-def rescue():
+@app.route('/game', methods=['POST'])
+def game():
     count = int(request.form.get('rescue_count', 1))
     username = request.form.get('username', 'Player')
     
     if count < 1:
         return redirect('/')
     
-    return render_template_string(rescue_template, count=count, username=username)
+    return render_template("game.html", count=count, username=username)
 
 @app.route('/result', methods=['POST'])
 def result():
